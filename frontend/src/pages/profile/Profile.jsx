@@ -4,6 +4,7 @@ const Profile = () => {
   return (
     <div>
         <p>profile</p>
+        <p>there</p>
     </div>
   )
 }
