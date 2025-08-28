@@ -31,50 +31,17 @@ export const apiRequest = async (endpoint, options = {}) => {
 
 // Authentication API calls
 export const authAPI = {
-  // check if email exists and send OTP
-  checkandsendotp: async (userData) => {
-    return apiRequest("/auth/check-and-send-otp", {
-      method: "POST",
-      body: JSON.stringify(userData),
-    });
-  },
-
-  // verify OTP
-  verifyOTP: async (data, otp) => {
-    return apiRequest("/auth/verify-otp", {
-      method: "POST",
-      body: JSON.stringify({ data, otp }),
-    });
-  },
-
-  // resend OTP
-  resendOTP: async (email) => {
-    return apiRequest("/auth/resend-otp", {
-      method: "POST",
-      body: JSON.stringify({ email }),
-    });
-  },
-
   login: async (credentials) => {
-    return apiRequest("/auth/login", {
+    return apiRequest("/api/user/login", {
       method: "POST",
       body: JSON.stringify(credentials),
     });
   },
 
-  // Step 1: send OTP for password reset
-  sendResetOtp: async (email) => {
-    return apiRequest("/auth/send-reset-otp", {
+  signup: async (userInfo) => {
+    return apiRequest("/api/user/signup", {
       method: "POST",
-      body: JSON.stringify({ email }),
-    });
-  },
-
-  // Step 2: verify OTP and change password
-  verifyResetOtpAndChangePassword: async (email, otp, newPassword) => {
-    return apiRequest("/auth/verify-reset-otp", {
-      method: "POST",
-      body: JSON.stringify({ email, otp, newPassword }),
+      body: JSON.stringify(userInfo),
     });
   },
 };
