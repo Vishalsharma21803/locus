@@ -34,8 +34,8 @@ const createOrder = async (req, res) => {
       menuItem.stock -= item.quantity;
       await menuItem.save({ session });
     }
-    // Set expiresAt to 15 minutes from now
-    const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+    // Set expiresAt to 1 minute from now for testing
+    const expiresAt = new Date(Date.now() + 1 * 60 * 1000);
     const newOrder = new Order({
       userId,
       items,
