@@ -29,16 +29,15 @@ const LoginPage = () => {
       const response = await authAPI.login(data);
       console.log("Login successful:", response);
       
-      if (response.status && response.token) {
+      if (response.success && response.token) {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user', JSON.stringify({
-          id: response.id,
-          name: response.name,
-          email: response.email,
-          role: response.role
+          id: response.user._id,
+          name: response.user.name,
+          email: response.user.email,
+          role: response.user.role
         }));
         window.dispatchEvent(new Event('storage'));
-
         navigate('/menu');
       }
     } catch (error) {
