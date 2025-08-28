@@ -8,6 +8,7 @@ import MenuItem from './models/Product.js';
 import mongoose from 'mongoose';
 import userRoutes from './routes/User.js';
 import productRoutes from './routes/Product.js';
+import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
