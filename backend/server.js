@@ -8,7 +8,11 @@ import MenuItem from './models/Product.js';
 import mongoose from 'mongoose';
 import userRoutes from './routes/User.js';
 import productRoutes from './routes/Product.js';
+
 import orderRoutes from './routes/Order.js';
+
+import cors from 'cors';
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,6 +21,7 @@ app.use(express.json());
 
 connectDB();
 
+
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/order', orderRoutes);
@@ -24,6 +29,13 @@ app.use('/api/order', orderRoutes);
 app.get('/', (req, res) => {
   res.send('Canteen Ordering System API');
 });
+
+app.use(
+  cors({
+      origin: ["http://localhost:5173", "http://localhost:5000"], 
+      credentials: true,
+  })
+);
 
 cron.schedule('* * * * *', async () => {
   const now = new Date();
