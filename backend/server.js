@@ -8,7 +8,11 @@ import MenuItem from './models/Product.js';
 import mongoose from 'mongoose';
 import userRoutes from './routes/User.js';
 import productRoutes from './routes/Product.js';
+
+import orderRoutes from './routes/Order.js';
+
 import cors from 'cors';
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,6 +24,7 @@ connectDB();
 
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
+app.use('/api/order', orderRoutes);
 
 app.get('/', (req, res) => {
   res.send('Canteen Ordering System API');
