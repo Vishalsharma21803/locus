@@ -1,5 +1,6 @@
 
 import React from 'react';
+import MenuCard from '../../components/menu/MenuCard';
 import styles from './LandingPage.module.css';
 import { useNavigate } from 'react-router-dom';
 

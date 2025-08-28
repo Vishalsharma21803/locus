@@ -1,11 +1,15 @@
 import Product from "../models/Product.js";
 
 const createProduct = async (req, res) => {
-  console.log('Create Product request body:', req.body);
-  const { name, price, stock, imageUrl, description } = req.body;
+  if (!req.body) {
+    console.log('No form data received');
+    return res.status(400).json({ error: "No form data received" });
+  }
+  const { name, price, stock, description } = req.body;
+  const imageUrl = req.file?.path;
 
-  if (!name || !price || !stock) {
-    console.log('Missing fields:', { name, price, stock });
+  if (!name || !price || !stock || !imageUrl) {
+    console.log('Missing fields:', { name, price, stock, imageUrl });
     return res.status(400).json({ error: "All fields are required" });
   }
   try {
