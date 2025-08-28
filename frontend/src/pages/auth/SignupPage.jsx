@@ -11,7 +11,8 @@ const SignupPage = () => {
   const [data, setData] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    role: "",
   });
 
   const handleChange = (e) => {
@@ -29,17 +30,19 @@ const SignupPage = () => {
       const response = await authAPI.signup(data);
       console.log("Signup successful:", response);
 
-      if (response.status && response.token) {
-        localStorage.setItem('token', response.token);
+      if (response.success && response.user) {
+        // Optionally, generate a token here if backend does not return one
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+        }
         localStorage.setItem('user', JSON.stringify({
-          id: response.id,
-          name: response.name,
-          email: response.email,
-          role: response.role
+          id: response.user._id,
+          name: response.user.name,
+          email: response.user.email,
+          role: response.user.role
         }));
         window.dispatchEvent(new Event('storage'));
-
-        navigate('/menu');
+        navigate('/login');
       }
     } catch (error) {
       console.error("Signup failed:", error);
@@ -68,6 +71,11 @@ const SignupPage = () => {
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </span>
           </div>
+          <select className={styles.input} name="role" value={data.role} onChange={handleChange} required>
+            <option value="" disabled>Select Role</option>
+            <option value="customer">Customer</option>
+            <option value="admin">Admin</option>
+          </select>
           <button className={styles.authButton} type="submit">Sign Up</button>
         </form>
         <p className={styles.switchText}>Already have an account? <a href="/login" className={styles.link}>Login</a></p>
