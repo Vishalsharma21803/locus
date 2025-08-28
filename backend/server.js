@@ -16,12 +16,20 @@ app.use(express.json());
 
 connectDB();
 
+
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
 
 app.get('/', (req, res) => {
   res.send('Canteen Ordering System API');
 });
+
+app.use(
+  cors({
+      origin: ["http://localhost:5173", "http://localhost:5000"], 
+      credentials: true,
+  })
+);
 
 cron.schedule('* * * * *', async () => {
   const now = new Date();
