@@ -6,13 +6,14 @@ import {
   confirmPickup,
   cancelOrder
 } from '../controllers/Order.js';
+import { authenticate } from '../middlewares/auth.js';
 
 const router = express.Router();
 
-router.get('/', getAllOrders);
-router.post('/', createOrder);
-router.post('/confirm-payment', confirmPayment);
-router.post('/confirm-pickup', confirmPickup);
-router.post('/cancel', cancelOrder);
+router.get('/', authenticate, getAllOrders);
+router.post('/', authenticate, createOrder);
+router.post('/confirm-payment', authenticate, confirmPayment);
+router.post('/confirm-pickup', authenticate, confirmPickup);
+router.post('/cancel', authenticate, cancelOrder);
 
 export default router;
