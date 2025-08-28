@@ -1,26 +1,30 @@
-import Product from "../models/Product";
+import Product from "../models/Product.js";
 
 const createProduct = async (req, res) => {
-  const { name, price, quantity, image } = req.body;
+  console.log('Create Product request body:', req.body);
+  const { name, price, stock, imageUrl, description } = req.body;
 
-  if (!name || !price || !quantity || !image) {
+  if (!name || !price || !stock) {
+    console.log('Missing fields:', { name, price, stock });
     return res.status(400).json({ error: "All fields are required" });
   }
   try {
     const newProduct = new Product({
       name,
       price,
-      quantity,
-      image,
+      stock,
+      imageUrl,
+      description
     });
     await newProduct.save();
+    console.log('Product created:', newProduct);
     res.status(201).json({
       success: true,
       newProduct,
     });
   } catch (error) {
     console.error("Error creating product:", error);
-    res.status(500).json({ success: false, error: "Internal server error" });
+    res.status(500).json({ success: false, error: "Internal server error", details: error.message });
   }
 };
 

@@ -6,13 +6,14 @@ import {
   getProductById,
   updateProduct,
 } from "../controllers/Product.js";
+import { authenticate, authorizeAdmin } from '../middlewares/auth.js';
 
 const router = express.Router();
 
 router.get("/", getAllProducts);
 router.get("/:id", getProductById);
-router.post("/", createProduct);
-router.put("/:id", updateProduct);
-router.delete("/:id", deleteProduct);
+router.post("/", authenticate, authorizeAdmin, createProduct);
+router.put("/:id", authenticate, authorizeAdmin, updateProduct);
+router.delete("/:id", authenticate, authorizeAdmin, deleteProduct);
 
 export default router;
