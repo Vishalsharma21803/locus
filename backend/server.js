@@ -17,13 +17,12 @@ import cors from 'cors';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(express.json());
-app.use(cors(
-  {
-    origin: ['http://localhost:5173'],
-  }
-));
 
+app.use(express.json());
+app.use(cors({
+  origin: ['http://localhost:5173'],
+  credentials: true,
+}));
 
 connectDB();
 
@@ -36,12 +35,7 @@ app.get('/', (req, res) => {
   res.send('Canteen Ordering System API');
 });
 
-app.use(
-  cors({
-      origin: ["http://localhost:5173", "http://localhost:5000"], 
-      credentials: true,
-  })
-);
+
 
 cron.schedule('* * * * *', async () => {
   const now = new Date();
