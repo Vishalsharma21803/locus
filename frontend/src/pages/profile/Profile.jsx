@@ -5,6 +5,7 @@ const Profile = () => {
     <div>
         <p>profile</p>
         <p>there</p>
+        <p>hi</p>
     </div>
   )
 }
